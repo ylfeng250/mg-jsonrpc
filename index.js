@@ -1,4 +1,4 @@
-import { setup, sendRequest } from 'rpc';
+import { setup, sendRequest } from './rpc';
 
 export const createUIAPI = function createUIAPI(methods, options) {
   const timeout = options && options.timeout;

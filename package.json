@@ -1,6 +1,6 @@
 {
   "name": "mg-jsonrpc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Leverage JSON-RPC to communicate between your masterGo plugin and your master UI",
   "main": "index.js",
   "scripts": {
