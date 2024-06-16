@@ -1,11 +1,15 @@
 {
-  "name": "figma-jsonrpc",
-  "version": "0.4.1",
-  "description": "Leverage JSON-RPC to communicate between your Figma plugin and your Figma UI",
+  "name": "mg-jsonrpc",
+  "version": "1.0.0",
+  "description": "Leverage JSON-RPC to communicate between your masterGo plugin and your master UI",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Mathieu Dutour",
+  "author": "六奇",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ylfeng250/mg-jsonrpc"
+  },
   "license": "MIT"
 }

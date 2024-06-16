@@ -1,11 +1,15 @@
-# figma-JSONRPC
+# mg-JSONRPC
 
-Leverage [JSON-RPC](https://www.jsonrpc.org) to communicate between your [Figma](https://www.figma.com/) plugin and your Figma UI.
+Leverage [JSON-RPC](https://www.jsonrpc.org) to communicate between your [masterGo](https://mastergo.com/) plugin and your Master Go UI.
+
+## Introduction
+
+从仓库[figma-rpc](https://github.com/Lona/figma-jsonrpc) fork而来，添加了`mg-jsonrpc`的API，使得在masterGo插件和masterGo UI之间进行通信。
 
 ## Installation
 
 ```bash
-npm install figma-jsonrpc
+npm install mg-jsonrpc
 ```
 
 ## Usage
@@ -13,7 +17,7 @@ npm install figma-jsonrpc
 - Define your API in a separate file (in `api.ts` for example):
 
   ```ts
-  import { createPluginAPI, createUIAPI } from "figma-jsonrpc";
+  import { createPluginAPI, createUIAPI } from "mg-jsonrpc";
 
   // those methods will be executed in the Figma plugin,
   // regardless of where they are called from
@@ -22,14 +26,14 @@ npm install figma-jsonrpc
       return "pong";
     },
     setToken(token: string) {
-      return figma.clientStorage.setAsync("token", token);
+      return mg.clientStorage.setAsync("token", token);
     },
     getToken() {
-      return figma.clientStorage.getAsync("token");
+      return mg.clientStorage.getAsync("token");
     }
   });
 
-  // those methods will be executed in the Figma UI,
+  // those methods will be executed in the MasterGo UI,
   // regardless of where they are called from
   export const uiApi = createUIAPI({
     selectionChanged(selection) {
@@ -44,9 +48,9 @@ npm install figma-jsonrpc
   import { uiApi } from "./api";
 
   // This shows the HTML page in "ui.html".
-  figma.showUI(__html__);
+  mg.showUI(__html__);
 
-  figma.on("selectionchange", () => {
+  mg.on("selectionchange", () => {
     uiApi.selectionChange(figma.currentPage.selection);
   });
   ```
@@ -65,33 +69,6 @@ The typescript definition of the API is automatically inferred from the methods 
 
 > :warning: You always need to import the API in both the plugin and the UI, even if you aren't using it. It is necessary so that both part can handle calls from each other.
 
-## One more thing...
-
-Using React? There are a couple of treats for you.
-
-Two React hooks you can use in your UI which will setup the necessary APIs for you.
-
-- `useFigmaSelection`: get and set the current [Figma selection](https://www.figma.com/plugin-docs/api/properties/PageNode-selection/#docsNav)
-
-  ```js
-  import useFigmaSelection from "figma-jsonrpc/hooks/useFigmaSelection";
-
-  const Component = () => {
-    const [selection, setSelection] = useFigmaSelection();
-  };
-  ```
-
-- `useFigmaSetting`: get and set any [setting](https://www.figma.com/plugin-docs/api/figma-clientStorage/)
-
-  ```js
-  import useFigmaSetting from "figma-jsonrpc/hooks/useFigmaSetting";
-
-  const Component = () => {
-    const [token, error, loading, setToken] = useFigmaSetting("token");
-  };
-  ```
-
-In both cases, you also need to import `figma-jsonrpc/hooks/*` in your plugin to create the APIs.
 
 ## License
 
