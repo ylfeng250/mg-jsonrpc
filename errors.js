@@ -1,4 +1,4 @@
-module.exports.ParseError = class ParseError extends Error {
+export const ParseError = class ParseError extends Error {
   constructor(data) {
     super("Parse error");
     this.data = data;
@@ -6,7 +6,7 @@ module.exports.ParseError = class ParseError extends Error {
   }
 };
 
-module.exports.InvalidRequest = class InvalidRequest extends Error {
+export const InvalidRequest = class InvalidRequest extends Error {
   constructor(data) {
     super("Invalid Request");
     this.data = data;
@@ -14,7 +14,7 @@ module.exports.InvalidRequest = class InvalidRequest extends Error {
   }
 };
 
-module.exports.MethodNotFound = class MethodNotFound extends Error {
+export const MethodNotFound = class MethodNotFound extends Error {
   constructor(data) {
     super("Method not found");
     this.data = data;
@@ -22,7 +22,7 @@ module.exports.MethodNotFound = class MethodNotFound extends Error {
   }
 };
 
-module.exports.InvalidParams = class InvalidParams extends Error {
+export const InvalidParams = class InvalidParams extends Error {
   constructor(data) {
     super("Invalid params");
     this.data = data;
@@ -30,7 +30,7 @@ module.exports.InvalidParams = class InvalidParams extends Error {
   }
 };
 
-module.exports.InternalError = class InternalError extends Error {
+export const InternalError = class InternalError extends Error {
   constructor(data) {
     super("Internal error");
     this.data = data;

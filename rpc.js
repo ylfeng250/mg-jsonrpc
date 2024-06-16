@@ -1,11 +1,11 @@
-const RPCError = require("./errors");
-const { MethodNotFound } = require("./errors");
+import * as  RPCError from "./errors";
+import { MethodNotFound } from "./errors";
 
 let sendRaw;
 
-if (typeof figma !== "undefined") {
-  figma.ui.on('message', message => handleRaw(message));
-  sendRaw = message => figma.ui.postMessage(message);
+if (typeof mg !== "undefined") {
+  mg.ui.on('message', message => handleRaw(message));
+  sendRaw = message => mg.ui.postMessage(message);
 } else if (typeof parent !== "undefined") {
   onmessage = event => handleRaw(event.data.pluginMessage);
   sendRaw = message => parent.postMessage({ pluginMessage: message }, "*");
@@ -118,15 +118,15 @@ function handleRequest(json) {
   }
 }
 
-module.exports.setup = _methods => {
+export const setup = _methods => {
   Object.assign(methods, _methods);
 };
 
-module.exports.sendNotification = (method, params) => {
+export const sendNotification = (method, params) => {
   sendJson({ jsonrpc: "2.0", method, params });
 };
 
-module.exports.sendRequest = (method, params, timeout) => {
+export const sendRequest = (method, params, timeout) => {
   return new Promise((resolve, reject) => {
     const id = rpcIndex;
     const req = { jsonrpc: "2.0", method, params, id };
@@ -152,5 +152,3 @@ module.exports.sendRequest = (method, params, timeout) => {
     sendJson(req);
   });
 };
-
-module.exports.RPCError = RPCError;

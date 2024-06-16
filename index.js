@@ -1,6 +1,6 @@
-const { setup, sendRequest } = require("./rpc");
+import { setup, sendRequest } from 'rpc';
 
-module.exports.createUIAPI = function createUIAPI(methods, options) {
+export const createUIAPI = function createUIAPI(methods, options) {
   const timeout = options && options.timeout;
 
   if (typeof parent !== "undefined") {
@@ -18,16 +18,16 @@ module.exports.createUIAPI = function createUIAPI(methods, options) {
   }, {});
 };
 
-module.exports.createPluginAPI = function createPluginAPI(methods, options) {
+export const createPluginAPI = function createPluginAPI(methods, options) {
   const timeout = options && options.timeout;
 
-  if (typeof figma !== "undefined") {
+  if (typeof mg !== "undefined") {
     setup(methods);
   }
 
   return Object.keys(methods).reduce((prev, p) => {
     prev[p] = (...params) => {
-      if (typeof figma !== "undefined") {
+      if (typeof mg !== "undefined") {
         return Promise.resolve().then(() => methods[p](...params));
       }
       return sendRequest(p, params, timeout);
