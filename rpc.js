@@ -4,8 +4,8 @@ import { MethodNotFound } from "./errors";
 let sendRaw;
 
 if (typeof mg !== "undefined") {
-  mg.ui.on('message', message => handleRaw(message));
-  sendRaw = message => mg.ui.postMessage(message);
+  mg.ui.onmessage = (message) => handleRaw(message.pluginMessage);
+  sendRaw = message => mg.ui.postMessage({ pluginMessage: message });
 } else if (typeof parent !== "undefined") {
   onmessage = event => handleRaw(event.data.pluginMessage);
   sendRaw = message => parent.postMessage({ pluginMessage: message }, "*");
